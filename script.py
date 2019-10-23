@@ -24,7 +24,7 @@ def getUnique_colors_from_sheet(book, sheet):
             pattern_colour = book.colour_map[bgCell]
             unique_colors.add(pattern_colour)
 
-            if len(unique_colors) == 4 :
+            if len(unique_colors) == MAX_UNIQUE_COLORS :
                 row_break = True
                 break
 
