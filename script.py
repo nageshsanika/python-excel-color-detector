@@ -33,12 +33,39 @@ def getUnique_colors_from_sheet(book, sheet):
 
     return unique_colors
 
-colors = getUnique_colors_from_sheet(workbook, active_sheet)
+def get_blue_shade_colors(colors):
+    blues = []
+    for color in colors :
+        if color:
+            r, g, b = color
 
-print(colors)
+            # Only Blue Shade Colors
+            if b > g and b > r :
+                blues.append(color)
 
-for color in colors :
-    if color:
-        r, g, b = color
-        if b > g and b > r :
-            print(color)
+    return blues
+
+def sort_list_of_tuples(tup):  
+    # reverse = None (Sorts in Ascending order)  
+    # key is set to sort using third element ( blue value )
+    return(sorted(tup, key = lambda x: x[2]))  
+
+sheet_colors = getUnique_colors_from_sheet(workbook, active_sheet)
+blue_colors = get_blue_shade_colors(sheet_colors)
+
+# Sort based on blue value
+# lower the blue value darker the color
+blue_colors =  sort_list_of_tuples(blue_colors)
+
+result = []
+for i, blue in enumerate(blue_colors):
+    r, g, b = blue
+    # Dark shade of pixels
+    if b < 128 :
+        result.append({ 'DARK BLUE ' + str(i): blue})
+    else :
+        result.append({ 'LIGHT BLUE ' + str(i) : blue})
+
+print("Colors in Sheet", sheet_colors, '\n')
+print("Only Blue Colors in Sheet", blue_colors,  '\n')
+print("Shades of blue", result,  '\n')
