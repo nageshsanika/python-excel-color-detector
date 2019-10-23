@@ -1,5 +1,4 @@
 import xlrd
-import webcolors
 
 # max color to find for now its just 4
 MAX_UNIQUE_COLORS = 4
